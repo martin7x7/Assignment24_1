@@ -113,6 +113,12 @@ The following model training steps were performed:
 
 * Link to the file in which the model search is performed: <>
 
+<p align="center">
+ <img src=images/categorical_feature_basic_info_1.png width=50%/>
+ <br>
+ <em>Apraksts par bildi</em>
+</p>
+
  ## Contact and Further Information
  
 Discord: martin7x7
