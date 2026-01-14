@@ -91,7 +91,7 @@ The following models were trained:
 
 ## Results
 
-#### DATA PREPARATION RESULTS
+#### DATA PREPARE
 
 * For encoding categorical features, it is much more appropriate to use `CatBoostEncoder()` rather than `OneHotEncoder()`. `CatBoostEncoder()` did not increase the number of features and made it possible to use all features and the largest dataset during model training.
 * The analysis of categorical feature values showed the value distribution for each feature. It can be seen that most categorical features have missing values represented as “-” or “-/-”. This means that, when describing a single parcel, only a subset of features is used at a time, not all of them. It is important that all features are used for model training, not just a few.
