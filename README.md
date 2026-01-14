@@ -27,7 +27,7 @@ The main objective of this assignment is to create a machine learning model that
 
 ---
 
-#### DATA PREPARATION
+#### DATA PREPARE
 
 The following data preparation steps were performed:
 
@@ -80,7 +80,7 @@ The following models were trained:
 
 ---
 
-#### REPORT PREPARATION
+#### REPORTING
 
 * A table of training results was prepared, including information about the model deployed in the Azure system.
 * Several reports showing the most important features were prepared.
