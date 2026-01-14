@@ -126,7 +126,7 @@ The following models were trained:
 
 ---
 
-#### REPORT PREPARATION RESULTS
+#### REPORTING
 
 * It can be seen that the resulting "XGBRegressor" model is as good as the Azure model.
 * The figure below shows how often each feature appears in a split condition. It is evident that some features are used more frequently than others.
