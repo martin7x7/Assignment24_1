@@ -32,14 +32,14 @@ The main objective of this assignment is to create a machine learning model that
 The following data preparation steps were performed:
 
 * The data were loaded for processing.
-* Basic information about numerical features was printed, showing the number of values, mean, standard deviation, minimum, and maximum values.
+* Basic information about numerical features was printed, showing the number of values, mean, standard deviation, minimum, and maximum values (table 1).
 <p align="center">
  <img src=images/numerical_feature_basic_info.png width=50%/>
  <br>
  <em>Table 1. Numerical feature information</em>
 </p>
 
-* Basic information about categorical features was printed, showing for each feature: the feature name, number of categories, number of records with the category “-”, number of records with the category “-/-”, the top 10 most frequently used categories, and the number of records per category.
+* Basic information about categorical features was printed, showing for each feature: the feature name, number of categories, number of records with the category “-”, number of records with the category “-/-”, the top 10 most frequently used categories, and the number of records per category. Table 2 and 3 shows the list of categorical features and also count of records with "none" values "-" and "-/-". 
  
 <p align="center">
  <img src=images/categorical_feature_basic_info_1.png width=50%/>
@@ -76,31 +76,31 @@ The following models were trained:
   * second, the hyperparameters "max_depth", "min_child_weight", and "gamma" were tuned;
   * third, the hyperparameters "subsample", "colsample_bytree", and "colsample_bylevel" were tuned;
   * fourth, the hyperparameters "reg_alpha" and "reg_lambda" were tuned.
-* The best obtained "XGBRegressor()" model was trained separately in order to retain training process statistics for data analysis.
+* The "XGBRegressor()" model with best hyperparameters was trained separately in order to retain training process statistics for data analysis.
 
 ---
 
 #### REPORTING
 
-* A table of training results was prepared, including information about the model deployed in the Azure system.
+* A table of training results was prepared, including information about the model deployed in the Azure system (table 4 bellow).
 * Several reports showing the most important features were prepared.
 * A report showing the residual distribution was prepared.
-* A report showing residuals as a function of predicted values was prepared.
+* A report showing residuals for all predicted values was prepared.
 * A report showing predicted values versus actual values was prepared.
-* A report showing root mean squared error as a function of boosting iterations was prepared.
+* A report showing root mean squared error after certain number of boosting iterations was prepared.
 
 ## Results
 
 #### DATA PREPARE
 
-* For encoding categorical features, it is much more appropriate to use `CatBoostEncoder()` rather than `OneHotEncoder()`. `CatBoostEncoder()` did not increase the number of features and made it possible to use all features and the largest dataset during model training.
+* For encoding categorical features, it is much more appropriate to use "CatBoostEncoder()" rather than "OneHotEncoder()". "CatBoostEncoder()" did not increase the number of features and made it possible to use all features and the largest dataset during model training.
 * The analysis of categorical feature values showed the value distribution for each feature. It can be seen that most categorical features have missing values represented as “-” or “-/-”. This means that, when describing a single parcel, only a subset of features is used at a time, not all of them. It is important that all features are used for model training, not just a few.
 
 ---
 
 #### MODEL DEVELOPMENT RESULTS
 
-* Overall, all tree-based modeling approaches demonstrated good results. A comparison of performance metrics is shown in the table below.
+* Overall, all tree-based modeling approaches demonstrated good results. A comparison of performance metrics is shown in the table 4. Record with name "Azure model" is added to this list manually. It represents the data given by Azure Cloud platform after training a model on the same data. Author used metrics given by Auzure as target which must be reached by localy trained models.
 
 <p align="center">
  <img src=images/training_results.png width=100%/>
@@ -118,6 +118,8 @@ The following models were trained:
   * Stage 3 – "subsample", "colsample_bytree", "colsample_bylevel"
   * Stage 4 – "reg_alpha", "reg_lambda"
 
+In table 5 you can see hyperparameters for the best "XGBRegressor()" model obtained in four stage search process.
+
 <p align="center">
  <img src=images/xgbregressor_stage_4_final.png width=50%/>
  <br>
@@ -128,33 +130,33 @@ The following models were trained:
 
 #### REPORTING
 
-* It can be seen that the resulting "XGBRegressor" model is as good as the Azure model.
-* The figure below shows how often each feature appears in a split condition. It is evident that some features are used more frequently than others.
+* In table 4 it can be seen that the resulting "XGBRegressor" model is as good as the Azure model. Some indicators are slightly better, some are slightly worse. 
+* Figure 1 below shows how often each feature appears in a split condition. It is evident that some features are used more frequently than others.
 
 <p align="center">
  <img src=images/feature_importance_weight.png width=70%/>
  <br>
- <em>Figure 1. Feature importance - weight</em>
+ <em>Figure 1. Feature importance - usage in split conditions</em>
 </p>
 
-* The figure below shows which features were the most important for achieving maximum model accuracy. It can be seen that accuracy is driven by a few features, while most features are insignificant in terms of accuracy in the majority of cases.
+* Figure 2 below shows which features were the most important for achieving maximum model accuracy. It can be seen that accuracy is driven by a few features, while most features are insignificant in terms of accuracy in the majority of cases.
 
 <p align="center">
  <img src=images/feature_importance_gain.png width=70%/>
  <br>
- <em>Figure 2. Feature importance - gain</em>
+ <em>Figure 2. Feature importance - impact on accuracy</em>
 </p>
 
-* In the author’s view, the figure illustrates how features are used in model construction. From the author’s perspective, it is important that all features are used in model development in order to achieve accuracy in a production environment.
+* In the author’s view, the figure 3 illustrates how features are used in model construction. From the author’s perspective, it is important that all features are used in model development in order to achieve accuracy in a production environment. Figure 3 show only 20 features. However, in .ipynb file you can see usage statistics of all features.
 
 <p align="center">
  <img src=images/feature_importance_cover.png width=70%/>
  <br>
- <em>Figure 3. Feature importance - cover</em>
+ <em>Figure 3. Feature importance - usage in model construction</em>
 </p>
 
-* The author also prepared plots showing how much the predicted values differ from the actual values. However, in the author’s opinion, these plots were not very informative. Comparing various metrics with previously prepared models better characterizes the model.
-* The graph shown below illustrates how training tree-based models improves overall prediction accuracy as a function of the number of trees.
+* The author also prepared plots showing how much the predicted values differ from the actual values. However, in the author’s opinion, these plots were not very informative. Comparing various metrics with previously prepared models better characterizes the model. 
+* Figure 4 shown below illustrates how training tree-based models improves overall prediction accuracy after training a certain number of trees.
 
 <p align="center">
  <img src=images/xgbregressor_rmse.png width=70%/>
@@ -164,8 +166,8 @@ The following models were trained:
 
 ## Next steps
 
-* The best `XGBRegressor` model should be deployed in a cloud environment and an API interface to the model should be created.
-* Code should be developed in the ERP system that sends input data and receives the predicted quantity.
+* The best "XGBRegressor" model should be deployed in a cloud environment and an API interface to the model should be created.
+* Code should be developed in the ERP system that sends requests and receives the predicted quantity.
 * The obtained predictions should be compared with those generated by the model deployed in the Azure environment.
 
 ## Outline of the project
